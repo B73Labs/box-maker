@@ -40,49 +40,92 @@
 
     <!-- Import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css" />
-
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    
     <!-- Import the webpage's javascript file -->
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <!--
-      This is the body of the page
-      Look at the elements and see how they appear in the rendered page on the right
-      Each element is defined using tags, with < and > indicating where each one opens and closes
-      There are elements for sections of the page, images, text, and more
-      The elements include attributes referenced in the CSS for the page style
-    -->
+    <header>
+      <h1>
+        Box Maker
+      </h1>
+      <p>
+        Create a box for your model!
+      </p>
+      <p>
+        Upload an STL, and the box will automatically be sized to fit your STL's dimensions.  You can also manually specify the width, height, and depth of your desired box to output an SVG template you can cut and fold to create a package.
+      </p>
+      <p>
+        The SVG will contain cut lines (solid) and score lines (dashed). 
+      </p>
+    </header>
 
-    <!-- The wrapper and content divs set margins and positioning -->
-    <div class="wrapper">
-      <div class="content" role="main">
-        <!-- This is the start of content for our page -->
-        <h1 class="title">Hello World!</h1>
-
-        <img
-          src="https://cdn.glitch.com/a9975ea6-8949-4bab-addb-8a95021dc2da%2Fillustration.svg?v=1618177344016"
-          class="illustration"
-          alt="Editor illustration"
-          title="Click the image!"
-        />
-        <!-- Instructions on using this project -->
-        <div class="instructions">
-          <h2>
-            Using this project
-          </h2>
-          <p>
-            This is the Glitch <strong>Hello Website</strong> project. You can
-            use it to build your own site. Check out README.md in the editor for
-            more info and next steps you can take!
-          </p>
-          <!-- ADD BUTTON HERE -->
+    <main>
           
-          <!-- Once you've added the button from the readme, click it in the page -->
-          <!-- Check out the function in script.js to see how it works -->
+      <div class="parameters">
+        
+        <div class="stl container">
+          <h3>
+            Import an STL
+          </h3>
+          <input id="stlFile" type="file" onchange="parseSTL()" name="stlFile">
         </div>
+        
+        <div class="dimensions container">
+                  <p>
+          ...or override with your own dimensions
+          </p>
+
+          <label for="width">Width (in): </label>
+          <input type="text" id="width" name="width" value="1" onkeydown/>
+
+          <label for="width">Height (in): </label>
+          <input type="text" id="height" name="height" value="1"/>
+
+          <label for="width">Depth (in): </label>
+          <input type="text" id="depth" name="depth" value="1"/>
+
+          <button class="generate">Generate Box</button>
+          
+        </div>
+        
+        <div class="windowSelector container">
+          <p>
+            Include window (optional)
+          </p>
+          <button class="none active" onclick="setActive(this)" id="none">
+            None
+          </button>
+          <button class="rect" onclick="setActive(this)" id="rect">
+            <svg fill="none" width="20" height="10" stroke-width="1" stroke="black">
+              <rect x="2" y="2" width="18" height="8"/>
+            </svg>
+            Rectangle
+          </button>
+          <br>
+          <button class="ellipse" onclick="setActive(this)" id="ellipse">
+            <svg fill="none" width="20" height="10" stroke-width="1" stroke="black">
+              <ellipse cx="10" cy="5" rx="8" ry="3"/>
+            </svg>
+            Ellipse
+          </button>
+        </div>
+        
+        <button class="export">Export SVG</button>
+        
       </div>
-    </div>
-    <!-- The footer holds our remix button — you can use it for structure or cut it out ✂ -->
+      
+      <div class="box"></div>
+    
+      <script>
+        $('.box').append(generateBox());
+      </script>
+      <div style="clear: both;"></div>
+    </main>
     <footer class="footer">
       <div class="links"></div>
       <a
