@@ -30,10 +30,12 @@ function generateBox() {
     viewBoxHeight = (depth + height + depth) * 1.3;// without 1.3 scale factor, the svg preview is getting cut off
 
     console.log(`generateBox with width ${width} height ${height} depth ${depth} viewBoxWidth ${viewBoxWidth} viewBoxHeight ${viewBoxHeight}`);
-    return `<svg width="${fullWidthIn}in" height="${fullHeightIn}in" viewBox="0  0 ${viewBoxWidth + paddingAmt} ${viewBoxHeight + paddingAmt}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none"> 
-    <g class="cuts" stroke="blue">
-        <path class="cut" vector-effect="non-scaling-stroke" d="M${depth / 2 + width / 10} ${depth / 2 - offset * 0.8}
+    let outline;
+    outline += `
+M${depth / 2 + width / 10} ${depth / 2 - offset * 0.8}
 l-${width / 10} ${offset * 0.8}
+    `;
+    outline = `
 M${depth / 2} ${depth / 2}
 v${depth} 
 h-${depth / 2}
@@ -62,8 +64,10 @@ v${width / 2}
 M${depth / 2 + width} ${depth / 2 + depth - width / 2} 
 v-${depth - width / 2}
 l-${width / 10} -${offset * 0.8}
-h-${width - width / 10 * 2} 
-"/>
+h-${width - width / 10 * 2}`
+    return `<svg width="${fullWidthIn}in" height="${fullHeightIn}in" viewBox="0  0 ${viewBoxWidth + paddingAmt} ${viewBoxHeight + paddingAmt}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none"> 
+    <g class="cuts" stroke="blue">
+        <path class="cut" vector-effect="non-scaling-stroke" d="${outline}"/>
     </g>
     <g stroke="black" stroke-weight="1" class="score" stroke-dasharray="2">
       <path class="score" vector-effect="non-scaling-stroke" d="M${depth / 2} ${depth / 2} h${width} 
