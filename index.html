@@ -16,7 +16,7 @@
       You can write text in a comment and the content won't be visible in the page
     -->
 
-    <title>Hello World!</title>
+    <title>Box Maker with styles</title>
 
     <!-- Meta tags for SEO and social sharing -->
     <link rel="canonical" href="https://box-maker-with-styles.glitch.me/"/>
@@ -97,6 +97,49 @@
 
         <div class="windowSelector container">
             <p>
+                Box Style
+            </p>
+            <button class="none active" onclick="setActive(this)" id="none">
+                Presentation
+            </button>
+            <button class="rect" onclick="setActive(this)" id="hsc">
+                <svg fill="none" width="20" height="10" stroke-width="1" stroke="black">
+                    <rect x="2" y="2" width="18" height="8"/>
+                </svg>
+                Half slotted container (HSC)
+            </button>
+            <br>
+            <button class="ellipse" onclick="setActive(this)" id="cssc">
+                <svg fill="none" width="20" height="10" stroke-width="1" stroke="black">
+                    <ellipse cx="10" cy="5" rx="8" ry="3"/>
+                </svg>
+                Center special slotted container (CSSC)
+            </button>
+            <br>
+            <button class="ellipse" onclick="setActive(this)" id="osc">
+                <svg fill="none" width="20" height="10" stroke-width="1" stroke="black">
+                    <ellipse cx="10" cy="5" rx="8" ry="3"/>
+                </svg>
+                Overlap slotted container (OSC)
+            </button>
+            <br>
+            <button class="ellipse" onclick="setActive(this)" id="fol">
+                <svg fill="none" width="20" height="10" stroke-width="1" stroke="black">
+                    <ellipse cx="10" cy="5" rx="8" ry="3"/>
+                </svg>
+                Full overlap slotted container (FOL)
+            </button>
+            <br>
+            <button class="ellipse" onclick="setActive(this)" id="opf">
+                <svg fill="none" width="20" height="10" stroke-width="1" stroke="black">
+                    <ellipse cx="10" cy="5" rx="8" ry="3"/>
+                </svg>
+                One piece folder (OPF)
+            </button>
+        </div>
+
+        <div class="windowSelector container">
+            <p>
                 Include window (optional)
             </p>
             <button class="none active" onclick="setActive(this)" id="none">
@@ -117,16 +160,13 @@
             </button>
         </div>
 
+
         <button class="export">Export SVG</button>
 
     </div>
 
     <div class="box"></div>
 
-    <script>
-        $('.box').append(generateBox());
-
-    </script>
     <div style="clear: both;"></div>
 </main>
 <footer class="footer">

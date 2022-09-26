@@ -10,6 +10,8 @@ let offset = 20; // used for window size
 
 let scale = 72; // scale to export correctly for inches
 
+let box=$('.box');
+
 function generateBox() {
     let widthIn = parseFloat($('#width').val());
     let heightIn = parseFloat($('#height').val());
@@ -30,8 +32,7 @@ function generateBox() {
     console.log(`generateBox with width ${width} height ${height} depth ${depth} viewBoxWidth ${viewBoxWidth} viewBoxHeight ${viewBoxHeight}`);
     return `<svg width="${fullWidthIn}in" height="${fullHeightIn}in" viewBox="0  0 ${viewBoxWidth + paddingAmt} ${viewBoxHeight + paddingAmt}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none"> 
     <g class="cuts" stroke="blue">
-        <path class="cut" vector-effect="non-scaling-stroke" d="
-M${depth / 2 + width / 10} ${depth / 2 - offset * 0.8}
+        <path class="cut" vector-effect="non-scaling-stroke" d="M${depth / 2 + width / 10} ${depth / 2 - offset * 0.8}
 l-${width / 10} ${offset * 0.8}
 M${depth / 2} ${depth / 2}
 v${depth} 
@@ -65,8 +66,7 @@ h-${width - width / 10 * 2}
 "/>
     </g>
     <g stroke="black" stroke-weight="1" class="score" stroke-dasharray="2">
-      <path class="score" vector-effect="non-scaling-stroke" d="
-M${depth / 2} ${depth / 2} h${width} 
+      <path class="score" vector-effect="non-scaling-stroke" d="M${depth / 2} ${depth / 2} h${width} 
 M${depth / 2} ${depth / 2 + depth}h${width} 
 M${depth / 2} ${depth / 2 + depth + height}h${width} 
 M${depth / 2} ${depth / 2 + depth + height + depth}h${width} 
@@ -79,15 +79,6 @@ M${depth / 2 + width + depth + width} ${depth / 2 + depth}h${depth} M${depth / 2
 "/>
     </g>
   </svg>`;
-}
-
-function updateBox(newSVG = null) {
-    if(newSVG === null) {
-        newSVG = generateBox()
-    }
-    let $box = $('.box');
-    $box.empty();
-    $box.append(newSVG);
 }
 
 function addWindow(type) {
@@ -191,3 +182,15 @@ function parseSTL() {
         stlFile.val('');
     }
 }
+
+function updateBox(newSVG = null) {
+    if(newSVG === null) {
+        newSVG = generateBox()
+    }
+    box.empty();
+    box.append(newSVG);
+}
+
+$(function() {
+    box.append(generateBox());
+});
