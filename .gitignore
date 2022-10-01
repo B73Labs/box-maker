@@ -1,0 +1,4 @@
+/node_modules/
+!/node_modules/@svgdotjs/dist/svg.js*
+!/node_modules/svg.path.js/svg.path.*
+.idea

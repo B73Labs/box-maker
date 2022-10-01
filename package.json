@@ -1,0 +1,7 @@
+{
+  "dependencies": {},
+  "devDependencies": {
+    "@svgdotjs/svg.js": "^3.1.2",
+    "svg.path.js": "https://github.com/arcticlinux/svg.path.js"
+  }
+}

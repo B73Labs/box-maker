@@ -25,7 +25,7 @@
             content="Box maker with the ability to choose different styles"
     />
     <meta name="robots" content="index,follow"/>
-    <meta property="og:title" content="Hello World!"/>
+    <meta property="og:title" content="Box Maker with styles"/>
     <meta property="og:type" content="article"/>
     <meta property="og:url" content="https://box-maker-with-styles.glitch.me/"/>
     <meta
@@ -46,6 +46,8 @@
             crossorigin="anonymous"></script>
 
     <!-- Import the webpage's javascript file -->
+    <script src="/node_modules/@svgdotjs/svg.js/dist/svg.js"></script>
+    <script src="/node_modules/svg.path.js/svg.path.js"></script>
     <script src="/script.js" defer></script>
 </head>
 <body>
@@ -165,8 +167,8 @@
 
     </div>
 
-    <div class="box"></div>
-
+    <div id="box"></div>
+    <div id="rectbox"></div>
     <div style="clear: both;"></div>
 </main>
 <footer class="footer">
