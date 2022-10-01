@@ -10,7 +10,7 @@ let offset = 20; // used for window size
 
 let scale = 72; // scale to export correctly for inches
 
-let box = $('#rectbox');
+let box = $('#box');
 
 function generateBox()
 {
@@ -27,18 +27,26 @@ function generateBox()
     height = heightIn * scale;
     depth = depthIn * scale;
 
-    viewBoxWidth = (depth / 2 + width + depth + width + depth);
-    viewBoxHeight = (depth + height + depth) * 1.3;// without 1.3 scale factor, the svg preview is getting cut off
+    let msg;
+    msg = `generateBox with width ${width} height ${height} depth ${depth}`
+        + ` viewBoxWidth ${viewBoxWidth} viewBoxHeight ${viewBoxHeight}`;
+    console.log(msg);
 
-    console.log(`generateBox with width ${width} height ${height} depth ${depth} viewBoxWidth ${viewBoxWidth} viewBoxHeight ${viewBoxHeight}`);
-    let draw = SVG().addTo('#rectbox');
-    draw
+    let box = SVG().addTo('#box');
+
+    viewBoxWidth = (depth / 2 + width + depth + width + depth);
+    viewBoxHeight = (depth + height + depth) * 1.3; // without 1.3 scale factor, the svg preview is getting cut off
+    box.viewbox(0, 0, viewBoxWidth + paddingAmt, viewBoxHeight + paddingAmt);
+
+    box
         .size(fullWidthIn, fullHeightIn)
-        .path()
+        .group()
+        .addClass('cuts')
         .attr({
             fill: 'none', stroke: '#0000FF', 'stroke-width': 1
         })
 
+        .path()
         .M(depth / 2 + width / 10, depth / 2 - offset * 0.8)
         .l(-width / 10, offset * 0.8)
         .M(depth / 2, depth / 2)
@@ -71,12 +79,15 @@ function generateBox()
         .l(-width / 10, -offset * 0.8)
         .h(-(width - (width / 10 * 2)));
 
-    draw
+    box
         .size(fullWidthIn, fullHeightIn)
-        .path()
+        .group()
+        .addClass('score')
         .attr({
             fill: 'none', stroke: '#000', 'stroke-width': 1, 'stroke-dasharray': 2
         })
+        .path()
+
         .M(depth / 2, depth / 2)
         .h(width)
         .M(depth / 2, depth / 2 + depth)
@@ -172,7 +183,7 @@ $('.generate').on('click', function () {
 $('.export').on('click', function () {
     let downloadLink = document.createElement('a');
     downloadLink.download = 'box.svg';
-    downloadLink.href = "data:image/svg+xml," + (new XMLSerializer).serializeToString($('#box svg')[0]);
+    downloadLink.href = "data:image/svg+xml," + encodeURIComponent($('#box svg')[0].outerHTML);
     console.log(downloadLink.href);
     downloadLink.click();
 });
